@@ -1,22 +1,22 @@
 <div class="course-card">
     <div class="course-card__description">
-      <!-- Replace ::text:: with your code -->
-      <div class="course-card__description-title">::Title::</div>
-      <div class="course-card__description-text">::Description::</div>
+        <!-- Ensure title and description are displayed -->
+        <div class="course-card__description-title">{{ title }}</div>
+        <div class="course-card__description-text">{{ description }}</div>
     </div>
     <div class="course-card__info">
         <div class="course-card__info-text">
-            <div>
-              <b>Authors: </b>
-              ::Authors::
-            </div>
-            <div><b>Duration: </b><span class="course-card__duration">::Duration::</span></div>
-            <div><b>Created: </b><span class="course-card__date">::Creation Date::</span></div>
+            <div><b>Authors: </b>{{ authors.join(', ') || 'No Authors' }}</div>
+            <div><b>Duration: </b><span class="course-card__duration">{{ duration}} minutes</span></div>
+            <div><b>Created: </b><span class="course-card__date">{{ creationDate | date: 'mediumDate' || "20.03.2012" }}</span></div>
         </div>
+
         <div class="course-card__info-actions">
-            <app-button></app-button>
-            <div class="course-card__buttons">
-                <!--Enter your code here-->
+            <app-button text="SHOW COURSE" (click)="onShowCourse()"></app-button>
+
+            <div class="course-card__buttons" *ngIf="editable">
+                <ng-content select="[remove-button]"></ng-content>
+                <ng-content select="[edit-button]"></ng-content>
             </div>
         </div>
     </div>
